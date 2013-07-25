@@ -4,9 +4,11 @@ import cPickle as pickle
 import networkx as nx
 import senticnet
 import SenticParser
+import os
 
 def get_sentics_of_sentence(sentence):
-	G = nx.read_gpickle( "test.gpickle" )
+	dirname = os.path.dirname(__file__)
+	G = nx.read_gpickle(os.path.join(dirname, "test.gpickle"))
 
 	bigrams = []
 
@@ -58,4 +60,4 @@ def get_sentics_of_sentence(sentence):
 	to_search = list( set(	to_search ) )
 
 	sorted_by_length = sorted(to_search, key=lambda tup:len(tup.split("_")) )
-	return [sn.sentics(concept) for concept in to_search]
+	return filter(lambda x: x is not None, [sn.sentics(concept) for concept in to_search])

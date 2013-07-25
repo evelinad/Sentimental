@@ -50,7 +50,10 @@ class Senticnet(object):
 
         if parsed_graph is None:
             graph = rdflib.Graph()
-            parsed_graph = graph.parse(concept_sentics_uri, format="xml")
+	    try:
+                parsed_graph = graph.parse(concept_sentics_uri, format="xml")
+	    except:
+                return None
 
         for sentic in sentics.keys():
             sentics[sentic] = parsed_graph.objects(predicate=URIRef(self.senticapi_base_uri+sentic)).next().toPython()

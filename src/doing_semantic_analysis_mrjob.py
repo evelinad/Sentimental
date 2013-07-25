@@ -9,15 +9,16 @@ class SentimentAnalysisMRJob(MRJob):
 	def mapper(self, _, review):
 		review = simplejson.loads(review)
 		sentics = []
-		for sentence in nltk.sent_tokenize(review['text']):
-			sentics.append(get_sentics_of_sentence(sentence))
+		for sentence in sent_tokenize(review['text']):
+			sentics.extend(get_sentics_of_sentence(sentence))
 		if sentics:
 			sentics_avg = []
+			print sentics
 			for key in ['sensitivity', 'attention', 'pleasantness', 'aptitude']:
 				sentics_avg.append(sum([s_dict[key] for s_dict in sentics]) / float(len(sentics)))
 			yield review['business_id'], sentics_avg
 		else:
-			return None
+			print review
 
 	def reducer(self, biz, sentics):
 		labels = DBSCAN().fit_predict(array(sentics))
