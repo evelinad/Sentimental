@@ -18,7 +18,7 @@
 <body ng-app="sentimental" ng-controller="MapController">
   <div class="container" ng-controller="MapUIController">
     <div class="left-bar" ng-click="refreshMap()">
-      <h1> Sentiment Analysis</h1>
+      <h1>Sentiment Analysis</h1>
       <h2>Hackathon 11.0</h2>
       <div class="control">
         <label class="control-label">Pleasantness</label>
@@ -35,10 +35,9 @@
       <div class="control">
         <label class="control-label">Aptitude</label>
         <div class="slider" id="aptitude"></div>
-        <div class="controls">
-                  <input class="input-block-level" type="text" ng-click="refreshMap()" ng-model="watched.dim2">
-        </div>
         Pleasantness: {{pleasantness}}, Attention: {{attention}}, Sensitivity: {{sensitivity}}, Aptitude: {{aptitude}}.
+        <br>
+        Distance: {{distance}}
       </div>
       <script>
       $( ".slider" ).slider({

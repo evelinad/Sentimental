@@ -37,5 +37,16 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
 		$scope.attention = attention;
 		$scope.sensitivity = sensitivity;
 		$scope.aptitude = aptitude;
+
+		$scope.distance = $scope.compute_distance({'pleasantness': 50, 'attention': 50, 'sensitivity': 50, 'aptitude': 50});
+	};
+
+	$scope.compute_distance = function(input_dictionary) {
+		return Math.sqrt(
+			Math.pow(input_dictionary.pleasantness - $scope.pleasantness, 2) +
+			Math.pow(input_dictionary.attention - $scope.attention, 2) +
+			Math.pow(input_dictionary.sensitivity - $scope.sensitivity, 2) +
+			Math.pow(input_dictionary.aptitude - $scope.aptitude, 2)
+		)
 	};
 });
