@@ -40,7 +40,12 @@
     <div id="map-canvas" class="map-canvas" style="height: 96vh">
     </div>
     <script>
-      $( ".slider" ).slider();
+      $( ".slider" ).slider({
+        orientation: "horizontal",
+        range: "max",
+        value: 50,
+        max: 100
+      });
     </script>
   </body>
 </html>
