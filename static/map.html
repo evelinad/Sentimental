@@ -17,35 +17,44 @@
 </head>
 <body ng-app="sentimental" ng-controller="MapController">
   <div class="container" ng-controller="MapUIController">
-    <div class="left-bar">
+    <div class="left-bar" ng-click="refreshMap()">
       <h1> Sentiment Analysis</h1>
       <h2>Hackathon 11.0</h2>
       <div class="control">
-        <label class="control-label" for="emotion1">Pleasantness</label>
-        <div class="slider" id="pleasantness" ng-model="watched.pleasantness"></div>
+        <label class="control-label">Pleasantness</label>
+        <div class="slider" id="pleasantness"></div>
       </div>
       <div class="control">
         <label class="control-label">Attention</label>
-        <div class="slider" id="attention" ng-model="watched.attention"></div>
+        <div class="slider" id="attention"></div>
       </div>
       <div class="control">
         <label class="control-label">Sensitivity</label>
-        <div class="slider" id="sensitivity" ng-model="watched.sensitivity"></div>
+        <div class="slider" id="sensitivity"></div>
       </div>
       <div class="control">
         <label class="control-label">Aptitude</label>
-        <div class="slider" id="aptitude" ng-model="watched.aptitude"></div>
+        <div class="slider" id="aptitude"></div>
+        <div class="controls">
+                  <input class="input-block-level" type="text" ng-click="refreshMap()" ng-model="watched.dim2">
+        </div>
+        Pleasantness: {{pleasantness}}, Attention: {{attention}}, Sensitivity: {{sensitivity}}, Aptitude: {{aptitude}}.
       </div>
-    </div>
-    <div id="map-canvas" class="map-canvas" style="height: 96vh">
-    </div>
-    <script>
+      <script>
       $( ".slider" ).slider({
         orientation: "horizontal",
         range: "max",
         value: 50,
-        max: 100
+        max: 100,
+        change: update
       });
+
+      function update() {
+        $(".left-bar").click();
+      }
     </script>
+    </div>
+    <div id="map-canvas" class="map-canvas" style="height: 96vh">
+    </div>
   </body>
 </html>

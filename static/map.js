@@ -13,10 +13,10 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
 	// Setup map marker bindings.
 	$scope.queryMarker = null;
 	$scope.resultMarkers = [];
-	// $scope.$watch('watched', function(newVal, oldVal) {
-	// 	var locationTokens = newVal.latLng.split(",");
-	// 	$scope.replaceMarker(new google.maps.LatLng(locationTokens[0], locationTokens[1]));
-	// });
+	$scope.$watch('watched', function(newVal, oldVal) {
+		// var locationTokens = newVal.latLng.split(",");
+		// $scope.replaceMarker(new google.maps.LatLng(locationTokens[0], locationTokens[1]));
+	});
 	// Setup click behavior.
 	google.maps.event.addListener($scope.map.map, 'click', function(event) {
 		// Since this callback isn't fired from within angularjs, we have to
@@ -26,4 +26,16 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
 			$scope.map.map.panTo(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
 		});
 	});
+
+	$scope.refreshMap = function() {
+		var pleasantness = $( "#pleasantness" ).slider( "value" ),
+		attention = $( "#attention" ).slider( "value" ),
+		sensitivity = $( "#sensitivity" ).slider( "value" ),
+		aptitude = $( "#aptitude" ).slider( "value" );
+
+		$scope.pleasantness = pleasantness;
+		$scope.attention = attention;
+		$scope.sensitivity = sensitivity;
+		$scope.aptitude = aptitude;
+	};
 });

@@ -41,9 +41,9 @@ init_gmap = function(mapElement) {
 
     // Inits the map and sets a default location.
     var mapOptions = {
-	center: scottsHouse,
-	zoom: 14,
-	mapTypeId: google.maps.MapTypeId.ROADMAP
+        center: scottsHouse,
+        zoom: 14,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(mapElement, mapOptions);
 
