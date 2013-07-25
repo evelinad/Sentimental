@@ -30,3 +30,7 @@ class SentimentAnalysisMRJob(MRJob):
 				sentics_avg.append(sum([data[idx] for data in cluster_data]) / float(len(cluster_data)))
 			result.append(sentics_avg)
 		return sentics_avg
+
+
+if __name__ == '__main__':
+	SentimentAnalysisMRJob.run()
