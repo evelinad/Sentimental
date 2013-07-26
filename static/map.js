@@ -10,6 +10,19 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
 	// angular.extend($scope.watched, $location.search());
 
 	$scope.map = init_gmap(document.getElementById("map-canvas"));
+        $scope.data = [];
+        $scope.distances = [];
+
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: 'test_data/test_data.json',
+            success: function (data) {
+                $scope.$apply(function() {
+                    $scope.data = data;
+                });
+            }});
+
 	// Setup map marker bindings.
 	$scope.queryMarker = null;
 	$scope.resultMarkers = [];
@@ -42,9 +55,38 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
                 b = Math.floor(sliderIntensity * endColor[2] +
                                (1 - sliderIntensity) * startColor[2]);
                 elem.css("background-color", "rgb(" + r + "," + g + "," + b + ")");
+                recalcData();
             };
         };
 
+        recalcData = function () {
+            var distances = [];
+
+            var pleasantness = ($scope.pleasantness / 100.0) * 2 - 1;
+            var attitude = ($scope.attitude / 100.0) * 2 - 1;
+            var attention = ($scope.attention / 100.0) * 2 - 1;
+            var sensitivity = ($scope.sensitivity / 100.0) * 2 - 1;
+
+            for (var i = 0; i < $scope.data.length; i++) {
+                var review_emotion = $scope.data[i];
+                var distance = $scope.compute_distance(review_emotion,
+                                                       {pleasantness: pleasantness,
+                                                        attitude: attitude,
+                                                        attention: attention,
+                                                        sensitivity: sensitivity});
+                distances.push({location: new google.maps.LatLng(review_emotion['lat'], review_emotion['lng']),
+                                weight: distance});
+            }
+
+            $scope.distances = distances;
+        };
+
+        redrawMap = function () {
+            $scope.map.heatmap.setData($scope.distances);
+            // $scope.map.heatmapData.clear();
+            // for (var i = 0; i < $scope.distances.length; i++)
+            //     $scope.map.heatmapData.push($scope.distances[i]);
+        };
 
         $scope.pleasantness = 50;
         $scope.attention = 50;
@@ -54,6 +96,9 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
         $scope.$watch('attention', colorFader($('#attention'), [253, 255, 115], [255, 92, 0]));
         $scope.$watch('sensitivity', colorFader($('#sensitivity'), [153, 120, 215], [20, 53, 173]));
         $scope.$watch('aptitude', colorFader($('#aptitude'), [100, 125, 125], [25, 15, 100]));
+
+        $scope.$watch('data', recalcData);
+        $scope.$watch('distances', redrawMap);
 
 	// Setup click behavior.
 	google.maps.event.addListener($scope.map.map, 'click', function(event) {
@@ -76,15 +121,15 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
 		$scope.sensitivity = sensitivity;
 		$scope.aptitude = aptitude;
 
-		$scope.distance = $scope.compute_distance({'pleasantness': 50, 'attention': 50, 'sensitivity': 50, 'aptitude': 50});
+	    $scope.distance = 0; //$scope.compute_distance({'pleasantness': 50, 'attention': 50, 'sensitivity': 50, 'aptitude': 50});
 	};
 
-	$scope.compute_distance = function(input_dictionary) {
+        $scope.compute_distance = function(input1, input2) {
 		return Math.sqrt(
-			Math.pow(input_dictionary.pleasantness - $scope.pleasantness, 2) +
-			Math.pow(input_dictionary.attention - $scope.attention, 2) +
-			Math.pow(input_dictionary.sensitivity - $scope.sensitivity, 2) +
-			Math.pow(input_dictionary.aptitude - $scope.aptitude, 2)
-		)
+			Math.pow(input1.pleasantness - input2.pleasantness, 2) +
+			Math.pow(input1.attention - input2.attention, 2) +
+			Math.pow(input1.sensitivity - input2.sensitivity, 2) +
+			Math.pow(input1.aptitude - input2.aptitude, 2)
+		);
 	};
 });

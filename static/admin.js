@@ -53,6 +53,6 @@ init_gmap = function(mapElement) {
         map: map
     });
 
-    return {map : map, heatmapData : dataArray};
+    return {map : map, heatmap : heatmap};
 };
 
