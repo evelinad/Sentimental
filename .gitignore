@@ -1,8 +1,4 @@
-parser/stanford-postagger/.DS_Store
-parser/.DS_Store
-parser/stanford-postagger/models/.DS_Store
-.DS_Store
+*.DS_Store
 .project
 .pydevproject
-
 *.pyc

@@ -1,5 +1,5 @@
 from mrjob.job import MRJob
-from parser.senticsparser import get_sentics_of_sentence
+from parser import senticsparser
 import simplejson
 from nltk.tokenize import sent_tokenize
 from sklearn.cluster import DBSCAN
@@ -7,10 +7,11 @@ from numpy import array
 
 class SentimentAnalysisMRJob(MRJob):
 	def mapper(self, _, review):
+		sp = senticsparser.SenticsParser()
 		review = simplejson.loads(review)
 		sentics = []
 		for sentence in sent_tokenize(review['text']):
-			sentics.extend(get_sentics_of_sentence(sentence))
+			sentics.extend(sp.get_sentics_of_sentence(sentence))
 		if sentics:
 			sentics_avg = []
 			print sentics
