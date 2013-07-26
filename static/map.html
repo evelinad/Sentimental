@@ -36,14 +36,10 @@
       <div class="control">
         <label class="control-label">Aptitude</label>
         <div class="slider" id="aptitude"></div>
-        Pleasantness: {{pleasantness}}, Attention: {{attention}}, Sensitivity: {{sensitivity}}, Aptitude: {{aptitude}}.
-        <br>
-        Distance: {{distance}}
       </div>
       <script>
       $( ".slider" ).slider({
         orientation: "horizontal",
-        range: "max",
         value: 50,
         max: 100,
         change: update
