@@ -4,7 +4,7 @@ import nltk
 import sys
 from nltk.corpus import stopwords
 from nltk.tag.stanford import POSTagger
-
+import os
 
 
 class Parser:
@@ -12,9 +12,9 @@ class Parser:
     def __init__(self):
         self.MatchList = []
         self.ConceptMatches = []
-		dirname = os.path.dirname(__file__)
-		bidir_distsim = os.path.join(dirname, '../stanford-postagger/models/english-bidirectional-distsim.tagger')
-		postagger_jar = os.path.join(dirname, '../stanford-postagger/stanford-postagger.jar')
+        dirname = os.path.dirname(__file__)
+        bidir_distsim = os.path.join(dirname, '../stanford-postagger/models/english-bidirectional-distsim.tagger')
+        postagger_jar = os.path.join(dirname, '../stanford-postagger/stanford-postagger.jar')
         self.st = POSTagger(bidir_distsim, postagger_jar)
 
 

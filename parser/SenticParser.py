@@ -12,6 +12,7 @@ from nltk.tag.stanford import POSTagger
 from nltk.corpus import stopwords
 import ParseBigrams
 from itertools import groupby
+import os
 
 
 class SenticParser:
@@ -19,7 +20,7 @@ class SenticParser:
 		dirname = os.path.dirname(__file__)
 		bidir_distsim = os.path.join(dirname, '../stanford-postagger/models/english-bidirectional-distsim.tagger')
 		postagger_jar = os.path.join(dirname, '../stanford-postagger/stanford-postagger.jar')
-        self.st = POSTagger(bidir_distsim, postagger_jar)
+		self.st = POSTagger(bidir_distsim, postagger_jar)
 
 	def TaggedSentenceSlashForm(self, sentence ):
 
