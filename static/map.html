@@ -45,10 +45,10 @@
               <option ng-click="switchAxes(3, 'aptitude', 'pleasantness')">Pleasantness vs
                 Aptitude</option>
             </select>
-            <div style="font-size: 10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 30px; top:45px;-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);transform:rotate(-45deg)">{{label1}}</div>
-            <div style="font-size: 10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 150px; top: 42px;-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);transform:rotate(45deg)">{{label2}}</div>
-            <div style="font-size: 10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 150px; top: 162px;-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);transform:rotate(-45deg)">{{label3}}</div>
-            <div style="font-size:10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 30px; top: 156px;-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);transform:rotate(45deg)">{{label4}}</div>
+            <div style="font-size: 10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 30px; top:45px;-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);transform:rotate(-45deg)">{{label4}}</div>
+            <div style="font-size: 10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 150px; top: 42px;-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);transform:rotate(45deg)">{{label1}}</div>
+            <div style="font-size: 10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 150px; top: 162px;-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);transform:rotate(-45deg)">{{label2}}</div>
+            <div style="font-size:10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 30px; top: 156px;-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);transform:rotate(45deg)">{{label3}}</div>
             <div id="top-axis">{{topAxis}}</div>
             <input class="knob" data-min="0" data-displayInput=false data-max="360" data-width="150" data-height="170" data-cursor=true data-fgColor="#222222" data-thickness=.3 value="3">
         </div>
@@ -102,7 +102,7 @@
             <li>admiration</li>
           </ol>
         </div>
-        <button type="button" class="btn">Reset</button>
+        <button type="button" class="btn" ng-click="go(50, 50, 50, 50, '')">Reset</button>
       </div>
     </div>
     <div id="map-canvas" class="map-canvas" style="height: 96vh">
