@@ -74,7 +74,8 @@ h2 {
   font-weight: bold;
 }
 
-.slider-label {
+ol.slider-label {
+  list-style: none;
   width: 100%;
   padding: 0;
   overflow: hidden;
@@ -83,21 +84,21 @@ h2 {
   text-align: justify;
 }
 
-.d1, .d2, .d3 {
+ol.slider-label li:nth-child(1), ol.slider-label li:nth-child(2), ol.slider-label li:nth-child(3) {
   float: left;
   padding: 4px;
 }
 
-.d4, .d5, .d6 {
+ol.slider-label li:nth-child(4), ol.slider-label li:nth-child(5), ol.slider-label li:nth-child(6) {
   float: left;
   padding: 4px;
 }
 
-.d2, .d5 {
+ol.slider-label li:nth-child(2), ol.slider-label li:nth-child(5) {
   display: none;
 }
 
-.d1, .d6 {
+ol.slider-label li:nth-child(1), ol.slider-label li:nth-child(6) {
   color: rgb(50, 50, 50);
 }
 
