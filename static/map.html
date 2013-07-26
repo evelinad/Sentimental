@@ -71,11 +71,15 @@
           <div class="d6">admiration</div>
         </div>
       </div>
+      <label>Or choose from the following list:</label>
+      <select class="options">
+        <option ng-repeat="option in options" ng-click="go(option[0], option[1], option[2], option[3], option[4])">{{option[4]}}</option>
+      </select>
       <!-- More details about knobs: https://github.com/aterrien/jQuery-Knob -->
-       <div class="demo">
-            <p>preset options</p>
-            <div id="preset-description"> </div>
-            <input class="knob" data-min="0" data-max="5" data-width="150" data-cursor=true data-fgColor="#222222" data-thickness=.3 value="3">
+      <br>
+      <label>Or choose from the wheel:</label>
+      <div class="demo">
+            <input class="knob" data-min="0" data-max="360" data-width="150" data-cursor=true data-fgColor="#222222" data-thickness=.3 value="3" data-displayInput=false skin="tron">
         </div>
     </div>
     <div id="map-canvas" class="map-canvas" style="height: 96vh">
