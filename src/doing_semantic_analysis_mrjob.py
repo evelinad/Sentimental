@@ -10,9 +10,12 @@ class SentimentAnalysisMRJob(MRJob):
 	def __init__(self, args=None):
 		super(SentimentAnalysisMRJob, self).__init__(args=args)
 		self.sp = senticsparser.SenticsParser()
+		self.sf_biz = simplejson.loads(SFBizes)
 
 	def mapper(self, _, review):
 		review = simplejson.loads(review)
+		if not review['business_id'] in SFBizes:
+			return
 		sentics = []
 		for sentence in sent_tokenize(review['text']):
 			sentics.extend(self.sp.get_sentics_of_sentence(sentence))
@@ -22,8 +25,6 @@ class SentimentAnalysisMRJob(MRJob):
 			for key in ['sensitivity', 'attention', 'pleasantness', 'aptitude']:
 				sentics_avg.append(sum([s_dict[key] for s_dict in sentics]) / float(len(sentics)))
 			yield review['business_id'], sentics_avg
-		else:
-			print review
 
 	def reducer(self, biz, sentics):
 		labels = DBSCAN(eps=0.75).fit_predict(array(sentics))
