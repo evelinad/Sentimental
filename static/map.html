@@ -20,32 +20,37 @@
 <body ng-app="sentimental" ng-controller="MapController">
   <div class="container" ng-controller="MapUIController">
     <div class="left-bar" ng-click="refreshMap()">
-      <canvas id="mainCanvas" width="800" height="65"></canvas>
-      <h1>Sentiment Analysis</h1>
-      <h2>Hackathon 11.0</h2>
-      <label>Choose an emotion from the following list:</label>
+      <div id="top-part">
+        <canvas id="mainCanvas" width="200" height="65" style="position:absolute; float: left"></canvas>
+        <h1 style="float:right">Sentiment Analysis</h1>
+        <h2 style="float:right; margin-top: 0">Hackathon 11.0</h2>
+      </div>
+      <label>Choose an emotion:</label>
       <select class="options">
         <option ng-repeat="option in options" ng-click="go(option[0], option[1], option[2], option[3], option[4])">{{capitaliseFirstLetter(option[4])}}</option>
       </select>
       <!-- More details about knobs: https://github.com/aterrien/jQuery-Knob -->
-      <br>
-      <label>Or choose from the wheel:</label>
+      <label style="margin-top:0.6em">Or choose from the wheel:</label>
       <!-- More details about knobs: https://github.com/aterrien/jQuery-Knob -->
        <div class="demo">
             <!-- floating elements must come first! !-->
-            <div id="right-axis">{{rightAxis}}</div>
+            <div id="right-axis" style="margin-bottom:-1em">{{rightAxis}}</div>
             <select class="axes">
-              <option ng-click="switchAxes('pleasantness', 'attention')">Pleasantness vs
+              <option ng-click="switchAxes(0, 'pleasantness', 'attention')">Pleasantness vs
                 Attention</option>
-              <option ng-click="switchAxes('sensitivity', 'aptitude')">Sensitivity vs
+              <option ng-click="switchAxes(1, 'sensitivity', 'aptitude')">Sensitivity vs
                 Aptitude</options>
-              <option ng-click="switchAxes('attention', 'sensitivity')">Sensitivity vs
+              <option ng-click="switchAxes(2, 'attention', 'sensitivity')">Sensitivity vs
                 Attention</option>
-              <option ng-click="switchAxes('aptitude', 'pleasantness')">Pleasantness vs
+              <option ng-click="switchAxes(3, 'aptitude', 'pleasantness')">Pleasantness vs
                 Aptitude</option>
             </select>
+            <div style="font-size: 10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 30px; top:45px;-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);transform:rotate(-45deg)">{{label1}}</div>
+            <div style="font-size: 10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 150px; top: 42px;-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);transform:rotate(45deg)">{{label2}}</div>
+            <div style="font-size: 10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 150px; top: 162px;-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);transform:rotate(-45deg)">{{label3}}</div>
+            <div style="font-size:10pt;width:100px;position:relative;margin-bottom:-1.1em; left: 30px; top: 156px;-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);transform:rotate(45deg)">{{label4}}</div>
             <div id="top-axis">{{topAxis}}</div>
-            <input class="knob" data-min="0" data-displayInput=false data-max="360" data-width="150" data-height="150" data-cursor=true data-fgColor="#222222" data-thickness=.3 value="3">
+            <input class="knob" data-min="0" data-displayInput=false data-max="360" data-width="150" data-height="170" data-cursor=true data-fgColor="#222222" data-thickness=.3 value="3">
         </div>
       <button type="button" class="btn btn-primary" id="control-expander" >Advanced Options</button>
       <div id="controls">
