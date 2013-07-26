@@ -54,7 +54,7 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
         [50, 50, 20, 80, "submission"],
         [50, 50, 20, 20, "coercion"],
         [50 ,50, 80, 20, "contempt"],
-        [50, 80, 80, 50, "aggressiveness"],
+        [50, 80, 80, 50, "hostility"],
         [50, 20, 80, 50, "rejection"],
         [50, 20, 20, 50, "awe"],
         [50, 80, 20, 50, "anxiety"],
@@ -64,6 +64,11 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
         [20, 50, 50, 80, "envy"]
     ];
 
+    $scope.label1 = $scope.options[0][4];
+    $scope.label2 = $scope.options[1][4];
+    $scope.label3 = $scope.options[2][4];
+    $scope.label4 = $scope.options[3][4];
+
     $scope.go = function (e1, e2, e3, e4, description){
         $( "#pleasantness" ).slider( "value", e1 );
         $( "#attention" ).slider( "value", e2 );
@@ -71,10 +76,15 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
         $( "#aptitude" ).slider( "value", e4 );
     };
 
-    $scope.switchAxes = function (topAxis, rightAxis) {
+    $scope.switchAxes = function (i, topAxis, rightAxis) {
         console.log('switchaxes');
         $scope.topAxis = capitaliseFirstLetter(topAxis);
         $scope.rightAxis = capitaliseFirstLetter(rightAxis);
+
+        $scope.label1 = $scope.options[i * 4][4];
+        $scope.label2 = $scope.options[i * 4 + 1][4];
+        $scope.label3 = $scope.options[i * 4 + 2][4];
+        $scope.label4 = $scope.options[i * 4 + 3][4];
     }
 
     colorFader = function (elem, startColor, endColor) {
@@ -137,9 +147,9 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
         $scope.sensitivity = 50;
         $scope.aptitude = 50;
         $scope.$watch('pleasantness', colorFader($('#pleasantness'), [143, 236, 106], [50, 150, 50]));
-        $scope.$watch('attention', colorFader($('#attention'), [253, 255, 115], [255, 92, 0]));
+        $scope.$watch('attention', colorFader($('#attention'), [253, 255, 115], [240, 80, 0]));
         $scope.$watch('sensitivity', colorFader($('#sensitivity'), [153, 120, 215], [20, 53, 173]));
-        $scope.$watch('aptitude', colorFader($('#aptitude'), [100, 125, 125], [25, 15, 100]));
+        $scope.$watch('aptitude', colorFader($('#aptitude'), [252, 0, 46], [189, 6, 39]));
 
         $scope.$watch('data', recalcData);
         $scope.$watch('distances', redrawMap);
@@ -199,10 +209,10 @@ $(function() {
 $(document).ready(function() {
     context = $("#mainCanvas")[0].getContext("2d");
     context.fillStyle = "rgb(200,0,0)";  
-    context.fillRect(10, 10, 55, 50);  
+    context.fillRect(5, 10, 50, 50);  
 
     context.fillStyle = "rgba(0, 0, 200, 0.5)";  
-    context.fillRect(30, 30, 55, 50);
+    context.fillRect(30, 35, 55, 55);
 });
 
 

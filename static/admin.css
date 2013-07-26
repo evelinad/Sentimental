@@ -24,9 +24,10 @@ h2 {
 
 .left-bar {
   width: 25%;
-  max-width: 300px;
-  min-width: 290px;
+  height: 96vh;
+  width: 310px;
   float: left;
+  overflow-y: auto;
 }
 
 .left-bar label {
@@ -42,7 +43,7 @@ h2 {
 
 .left-bar #controls
 {
-    display: none;
+    display: block;
 }
 
 .left-bar .control {
@@ -94,6 +95,7 @@ ol.slider-label {
   color: rgb(150, 150, 150);
   font-size: 0.9em;
   text-align: justify;
+  margin-top: -10px;
 }
 
 ol.slider-label li
@@ -126,7 +128,7 @@ ol.slider-label li:nth-child(1), ol.slider-label li:nth-child(6) {
 div.demo {
   text-align: center;
   width: 280px;
-  float: left
+  padding-left: 1em;
 }
 
 div.demo > p {
@@ -144,11 +146,11 @@ div.demo > p {
     color: rgb(0, 0, 150);
     text-align: center;
     float: right;
-    -webkit-transform: rotate(90deg) translateX(230px) translateY(20px);
+    -webkit-transform: rotate(90deg) translateX(250px) translateY(30px);
     -webkit-transform-origin: 100% 0%;
-    -moz-transform: rotate(90deg) translateX(230px) translateY(20px);
+    -moz-transform: rotate(90deg) translateX(250px) translateY(30px);
     -moz-transform-origin: 100% 0%;
-    transform: rotate(90deg) translateX(230px) translateY(20px);
+    transform: rotate(90deg) translateX(250px) translateY(30px);
     transform-origin: 100% 0%;
     width: 200px;
 }
