@@ -22,7 +22,7 @@ class SentimentAnalysisMRJob(MRJob):
 			print review
 
 	def reducer(self, biz, sentics):
-		labels = DBSCAN().fit_predict(array(sentics))
+		labels = DBSCAN(eps=0.75).fit_predict(array(sentics))
 		n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
 		result = []
 		for cluster_id in range(n_clusters):
