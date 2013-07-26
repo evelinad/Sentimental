@@ -10,18 +10,18 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
 	// angular.extend($scope.watched, $location.search());
 
 	$scope.map = init_gmap(document.getElementById("map-canvas"));
-        $scope.data = [];
-        $scope.distances = [];
+    $scope.data = [];
+    $scope.distances = [];
 
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: 'test_data/test_data.json',
-            success: function (data) {
-                $scope.$apply(function() {
-                    $scope.data = data;
-                });
-            }});
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: 'test_data/test_data.json',
+        success: function (data) {
+            $scope.$apply(function() {
+                $scope.data = data;
+            });
+        }});
 
 	// Setup map marker bindings.
 	$scope.queryMarker = null;
@@ -31,8 +31,34 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
 		// $scope.replaceMarker(new google.maps.LatLng(locationTokens[0], locationTokens[1]));
 	});
 
-        colorFader = function (elem, startColor, endColor) {
-            return function (newValue, oldValue) {
+    $scope.options = [
+        [80, 80, 50, 50, "optimism"],
+        [20, 80, 50, 50, "frustration"],
+        [20, 20, 50, 50, "disapproval"],
+        [80, 20, 50, 50, "frivolity"],
+        [50, 50, 80, 80, "rivalry"],
+        [50, 50, 20, 80, "submission"],
+        [50, 50, 20, 20, "coercion"],
+        [50 ,50, 80, 20, "contempt"],
+        [50, 80, 80, 50, "aggressiveness"],
+        [50, 20, 80, 50, "rejection"],
+        [50, 20, 20, 50, "awe"],
+        [50, 80, 20, 50, "anxiety"],
+        [80, 50, 50, 80, "love"],
+        [80, 50, 50, 20, "gloat"],
+        [20, 50, 50, 20, "remorse"],
+        [20, 50, 50, 80, "envy"]
+    ];
+
+    $scope.go = function (e1, e2, e3, e4, description){
+        $( "#pleasantness" ).slider( "value", e1 );
+        $( "#attention" ).slider( "value", e2 );
+        $( "#sensitivity" ).slider( "value", e3 );
+        $( "#aptitude" ).slider( "value", e4 );
+    };
+
+    colorFader = function (elem, startColor, endColor) {
+        return function (newValue, oldValue) {
                 var sliderValue = (newValue / 100.0); //* 2 - 1;
                 var sliderIntensity = Math.abs(sliderValue);
                 var r, g, b;
@@ -49,11 +75,11 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
                 // g = Math.floor(sliderIntensity * g + (1 - sliderIntensity) * 255);
                 // b = Math.floor(sliderIntensity * b + (1 - sliderIntensity) * 255);
                 r = Math.floor(sliderIntensity * endColor[0] +
-                               (1 - sliderIntensity) * startColor[0]);
+                   (1 - sliderIntensity) * startColor[0]);
                 g = Math.floor(sliderIntensity * endColor[1] +
-                               (1 - sliderIntensity) * startColor[1]);
+                   (1 - sliderIntensity) * startColor[1]);
                 b = Math.floor(sliderIntensity * endColor[2] +
-                               (1 - sliderIntensity) * startColor[2]);
+                   (1 - sliderIntensity) * startColor[2]);
                 elem.css("background-color", "rgb(" + r + "," + g + "," + b + ")");
                 recalcData();
             };
@@ -70,12 +96,12 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
             for (var i = 0; i < $scope.data.length; i++) {
                 var review_emotion = $scope.data[i];
                 var distance = $scope.compute_distance(review_emotion,
-                                                       {pleasantness: pleasantness,
-                                                        aptitude: aptitude,
-                                                        attention: attention,
-                                                        sensitivity: sensitivity});
+                 {pleasantness: pleasantness,
+                    aptitude: aptitude,
+                    attention: attention,
+                    sensitivity: sensitivity});
                 distances.push({location: new google.maps.LatLng(review_emotion['lat'], review_emotion['lng']),
-                                weight: Math.pow(3 * (Math.min(1e3, 1.0 / distance)), 4)});
+                    weight: Math.pow(3 * (Math.min(1e3, 1.0 / distance)), 4)});
             }
 
             $scope.distances = distances;
@@ -122,14 +148,14 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
 	    $scope.distance = 0; //$scope.compute_distance({'pleasantness': 50, 'attention': 50, 'sensitivity': 50, 'aptitude': 50});
 	};
 
-        $scope.compute_distance = function(input1, input2) {
-		return Math.sqrt(
-			Math.pow(input1.pleasantness - input2.pleasantness, 2) +
-			Math.pow(input1.attention - input2.attention, 2) +
-			Math.pow(input1.sensitivity - input2.sensitivity, 2) +
-			Math.pow(input1.aptitude - input2.aptitude, 2)
-		);
-	};
+    $scope.compute_distance = function(input1, input2) {
+      return Math.sqrt(
+         Math.pow(input1.pleasantness - input2.pleasantness, 2) +
+         Math.pow(input1.attention - input2.attention, 2) +
+         Math.pow(input1.sensitivity - input2.sensitivity, 2) +
+         Math.pow(input1.aptitude - input2.aptitude, 2)
+         );
+  };
 });
 
 $(document).ready(function () {
@@ -139,11 +165,11 @@ $(document).ready(function () {
 
 $(function() {
 	$( ".slider" ).slider({
-	    orientation: "horizontal",
-	    value: 50,
-	    max: 100,
-	    change: update
-	});
+       orientation: "horizontal",
+       value: 50,
+       max: 100,
+       change: update
+   });
 
 	function update() {
 		$(".left-bar").click();
@@ -167,24 +193,17 @@ $(function($) {
         },
         release : function (value) {
             //console.log(this.$.attr('value'));
-            if (value == 1) {
-                go(80, 80, 50, 50, "optimism");
-            } else if (value == 2) {
-                go(20, 80, 50, 50, "frustration");
-            } else if (value == 3) {
-                go(20, 20, 50, 50, "disapproval");
-            } else {
-                $( "#preset-description" ).text( "" );
-            };
-            console.log("release : " + value);
 
-            go = function (e1, e2, e3, e4, description){
-                $( "#pleasantness" ).slider( "value", e1 );
-                $( "#attention" ).slider( "value", e2 );
-                $( "#sensitivity" ).slider( "value", e3 );
-                $( "#aptitude" ).slider( "value", e4 );
-                $( "#preset-description" ).text( description);
+            goWheel = function (attribute1, attribute2){
+                $( attribute2 ).slider( "value", 50 + 50 * Math.cos(value / 180.0 * Math.PI ));
+                $( attribute1 ).slider( "value", 50 + 50 * Math.sin(value / 180.0 * Math.PI ));
             };
+
+            goWheel("#attention", "#pleasantness");
+            // goWheel("#aptitude", "#sensitivity");
+            // goWheel("#sensitivity", "#attention");
+            // goWheel("#pleasantness", "#aptitude");
+            console.log("release : " + value);
         },
         cancel : function () {
             console.log("cancel : ", this);
@@ -207,63 +226,63 @@ $(function($) {
                     , eat = sat + a                 // End angle
                     , r = 1;
 
-                this.g.lineWidth = this.lineWidth;
+                    this.g.lineWidth = this.lineWidth;
 
-                this.o.cursor
+                    this.o.cursor
                     && (sat = eat - 0.3)
                     && (eat = eat + 0.3);
 
-                if (this.o.displayPrevious) {
-                    ea = this.startAngle + this.angle(this.v);
-                    this.o.cursor
+                    if (this.o.displayPrevious) {
+                        ea = this.startAngle + this.angle(this.v);
+                        this.o.cursor
                         && (sa = ea - 0.3)
                         && (ea = ea + 0.3);
+                        this.g.beginPath();
+                        this.g.strokeStyle = this.pColor;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+                        this.g.stroke();
+                    }
+
                     this.g.beginPath();
-                    this.g.strokeStyle = this.pColor;
-                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+                    this.g.strokeStyle = r ? this.o.fgColor : this.fgColor ;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+                    this.g.stroke();
+
+                    this.g.lineWidth = 2;
+                    this.g.beginPath();
+                    this.g.strokeStyle = this.o.fgColor;
+                    this.g.arc( this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
                     this.g.stroke();
                 }
-
-                this.g.beginPath();
-                this.g.strokeStyle = r ? this.o.fgColor : this.fgColor ;
-                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
-                this.g.stroke();
-
-                this.g.lineWidth = 2;
-                this.g.beginPath();
-                this.g.strokeStyle = this.o.fgColor;
-                this.g.arc( this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
-                this.g.stroke();
             }
-        }
-    });
+        });
 
     // Example of infinite knob, iPod click wheel
     var v, up=0,down=0,i=0
-        ,$idir = $("div.idir")
-        ,$ival = $("div.ival")
-        ,incr = function() { i++; $idir.show().html("+").fadeOut(); $ival.html(i); }
-        ,decr = function() { i--; $idir.show().html("-").fadeOut(); $ival.html(i); };
+    ,$idir = $("div.idir")
+    ,$ival = $("div.ival")
+    ,incr = function() { i++; $idir.show().html("+").fadeOut(); $ival.html(i); }
+    ,decr = function() { i--; $idir.show().html("-").fadeOut(); $ival.html(i); };
     $("input.infinite").knob(
-                        {
-                        min : 0
-                        , max : 20
-                        , stopper : false
-                        , change : function () {
-                                        if(v > this.cv){
-                                            if(up){
-                                                decr();
-                                                up=0;
-                                            }else{up=1;down=0;}
-                                        } else {
-                                            if(v < this.cv){
-                                                if(down){
-                                                    incr();
-                                                    down=0;
-                                                }else{down=1;up=0;}
-                                            }
-                                        }
-                                        v = this.cv;
-                                    }
-                        });
+    {
+        min : 0
+        , max : 20
+        , stopper : false
+        , change : function () {
+            if(v > this.cv){
+                if(up){
+                    decr();
+                    up=0;
+                }else{up=1;down=0;}
+            } else {
+                if(v < this.cv){
+                    if(down){
+                        incr();
+                        down=0;
+                    }else{down=1;up=0;}
+                }
+            }
+            v = this.cv;
+        }
+    });
 });
