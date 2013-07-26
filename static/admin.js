@@ -50,7 +50,9 @@ init_gmap = function(mapElement) {
     ]);
     var heatmap = new google.maps.visualization.HeatmapLayer({
         data: dataArray,
-        map: map
+        map: map,
+        dissipating: false,
+        radius: 0.004
     });
 
     return {map : map, heatmap : heatmap};

@@ -75,7 +75,7 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
                                                         attention: attention,
                                                         sensitivity: sensitivity});
                 distances.push({location: new google.maps.LatLng(review_emotion['lat'], review_emotion['lng']),
-                                weight: Math.floor((Math.exp(1.1 * 1.0 / distance)))});
+                                weight: Math.pow(3 * 1.0 / distance, 5)});
             }
 
             $scope.distances = distances;
