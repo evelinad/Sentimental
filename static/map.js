@@ -131,3 +131,139 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
 		);
 	};
 });
+
+$(document).ready(function () {
+    if ($(window).width() < 1500)
+        $('body').addClass('too-narrow');
+});
+
+$(function() {
+	$( ".slider" ).slider({
+	    orientation: "horizontal",
+	    value: 50,
+	    max: 100,
+	    change: update
+	});
+
+	function update() {
+		$(".left-bar").click();
+	};
+});
+
+$(document).ready(function() {
+    context = $("#mainCanvas")[0].getContext("2d");
+    context.fillStyle = "rgb(200,0,0)";  
+    context.fillRect(10, 10, 55, 50);  
+
+    context.fillStyle = "rgba(0, 0, 200, 0.5)";  
+    context.fillRect(30, 30, 55, 50);
+});
+
+
+$(function($) {
+    $(".knob").knob({
+        change : function (value) {
+            //console.log("change : " + value);
+        },
+        release : function (value) {
+            //console.log(this.$.attr('value'));
+            if (value == 1) {
+                go(80, 80, 50, 50, "optimism");
+            } else if (value == 2) {
+                go(20, 80, 50, 50, "frustration");
+            } else if (value == 3) {
+                go(20, 20, 50, 50, "disapproval");
+            } else {
+                $( "#preset-description" ).text( "" );
+            };
+            console.log("release : " + value);
+
+            go = function (e1, e2, e3, e4, description){
+                $( "#pleasantness" ).slider( "value", e1 );
+                $( "#attention" ).slider( "value", e2 );
+                $( "#sensitivity" ).slider( "value", e3 );
+                $( "#aptitude" ).slider( "value", e4 );
+                $( "#preset-description" ).text( description);
+            };
+        },
+        cancel : function () {
+            console.log("cancel : ", this);
+        },
+        draw : function () {
+            // draw axis
+            this.g.lineWidth = 2;
+            this.g.beginPath();
+            this.g.strokeStyle = this.o.fgColor;
+            this.g.stroke();
+
+            this.g.fillRect(-100, -5, 100, 5);
+            // "tron" case
+            if(this.$.data('skin') == 'tron') {
+
+                var a = this.angle(this.cv)         // Angle
+                    , sa = this.startAngle          // Previous start angle
+                    , sat = this.startAngle         // Start angle
+                    , ea                            // Previous end angle
+                    , eat = sat + a                 // End angle
+                    , r = 1;
+
+                this.g.lineWidth = this.lineWidth;
+
+                this.o.cursor
+                    && (sat = eat - 0.3)
+                    && (eat = eat + 0.3);
+
+                if (this.o.displayPrevious) {
+                    ea = this.startAngle + this.angle(this.v);
+                    this.o.cursor
+                        && (sa = ea - 0.3)
+                        && (ea = ea + 0.3);
+                    this.g.beginPath();
+                    this.g.strokeStyle = this.pColor;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+                    this.g.stroke();
+                }
+
+                this.g.beginPath();
+                this.g.strokeStyle = r ? this.o.fgColor : this.fgColor ;
+                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+                this.g.stroke();
+
+                this.g.lineWidth = 2;
+                this.g.beginPath();
+                this.g.strokeStyle = this.o.fgColor;
+                this.g.arc( this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                this.g.stroke();
+            }
+        }
+    });
+
+    // Example of infinite knob, iPod click wheel
+    var v, up=0,down=0,i=0
+        ,$idir = $("div.idir")
+        ,$ival = $("div.ival")
+        ,incr = function() { i++; $idir.show().html("+").fadeOut(); $ival.html(i); }
+        ,decr = function() { i--; $idir.show().html("-").fadeOut(); $ival.html(i); };
+    $("input.infinite").knob(
+                        {
+                        min : 0
+                        , max : 20
+                        , stopper : false
+                        , change : function () {
+                                        if(v > this.cv){
+                                            if(up){
+                                                decr();
+                                                up=0;
+                                            }else{up=1;down=0;}
+                                        } else {
+                                            if(v < this.cv){
+                                                if(down){
+                                                    incr();
+                                                    down=0;
+                                                }else{down=1;up=0;}
+                                            }
+                                        }
+                                        v = this.cv;
+                                    }
+                        });
+});

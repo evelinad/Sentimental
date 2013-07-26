@@ -15,40 +15,68 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEA7d_xeYqQDp7R37tHgza_h9KhmCkgpI&sensor=false&libraries=visualization"></script>
   <script src="admin.js"></script>
   <script src="map.js"></script>
+  <script src="jquery.knob.js"></script>
 </head>
 <body ng-app="sentimental" ng-controller="MapController">
   <div class="container" ng-controller="MapUIController">
     <div class="left-bar" ng-click="refreshMap()">
+      <canvas id="mainCanvas" width="800" height="65"></canvas>
       <h1>Sentiment Analysis</h1>
       <h2>Hackathon 11.0</h2>
       <div class="control">
         <label class="control-label">Pleasantness</label>
         <div class="slider" id="pleasantness"></div>
+        <div class="slider-label">
+          <div class="d1">grief</div>
+          <div class="d2">sadness</div>
+          <div class="d3">pensiveness</div>
+          <div class="d4">serenity</div>
+          <div class="d5">joy</div>
+          <div class="d6">ecstasy</div>
+        </div>
       </div>
       <div class="control">
         <label class="control-label">Attention</label>
         <div class="slider" id="attention"></div>
+        <div class="slider-label">
+          <div class="d1">amazement</div>
+          <div class="d2">surprise</div>
+          <div class="d3">distraction</div>
+          <div class="d4">interest</div>
+          <div class="d5">anticipation</div>
+          <div class="d6">vigilance</div>
+        </div>
       </div>
       <div class="control">
         <label class="control-label">Sensitivity</label>
         <div class="slider" id="sensitivity"></div>
+        <div class="slider-label">
+          <div class="d1">terror</div>
+          <div class="d2">fear</div>
+          <div class="d3">apprehension</div>
+          <div class="d4">annoyance</div>
+          <div class="d5">anger</div>
+          <div class="d6">rage</div>
+        </div>
       </div>
       <div class="control">
         <label class="control-label">Aptitude</label>
         <div class="slider" id="aptitude"></div>
+        <div class="slider-label">
+          <div class="d1">loathing</div>
+          <div class="d2">disgust</div>
+          <div class="d3">boredom</div>
+          <div class="d4">acceptance</div>
+          <div class="d5">trust</div>
+          <div class="d6">admiration</div>
+        </div>
       </div>
-      <script>
-      $( ".slider" ).slider({
-        orientation: "horizontal",
-        value: 50,
-        max: 100,
-        change: update
-      });
-
-      function update() {
-        $(".left-bar").click();
-      }
-    </script>
+      <!-- More details about knobs: https://github.com/aterrien/jQuery-Knob -->
+       <div class="demo">
+            <p>preset options</p>
+            <div id="preset-description"> </div>
+            <input class="knob" data-min="0" data-max="5" data-width="150" data-cursor=true data-fgColor="#222222" data-thickness=.3 value="3">
+        </div>
     </div>
     <div id="map-canvas" class="map-canvas" style="height: 96vh">
     </div>

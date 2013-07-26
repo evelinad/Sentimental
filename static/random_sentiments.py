@@ -1,24 +1,24 @@
 import json
 import random
 
-def latLong(latCenter, longCenter, size):
+def latLng(latCenter, lngCenter, size):
     """random latitude and longitude near SF"""
     latitude = random.gauss(latCenter, size)
-    longitude = random.gauss(longCenter, size)
+    longitude = random.gauss(lngCenter, size)
     return (latitude, longitude)
 
-def sentics(e1Center, e2Center, e3Center, e4Center):
+def sentics(e1Center, e2Center, e3Center, e4Center, random_func):
     """random sentics"""
-    sentic = lambda x: max(-1, min(1, random.gauss(x, 0.2)))
+    sentic = lambda x: max(-1, min(1, random_func(x, 0.3)))
     return (sentic(e1Center), sentic(e2Center), sentic(e3Center), sentic(e4Center))
 
 
 def genRegion(latCenter, lngCenter, size, e1Center, e2Center, e3Center, e4Center):
     points = []
     for i in range(2000):
-        (lat, longi) = latLong(latCenter, lngCenter, size)
-        (e1, e2, e3, e4) = sentics(e1Center, e2Center, e3Center, e4Center)
-        points.append({"lat": lat, "lng": longi,
+        (lat, lng) = latLng(latCenter, lngCenter, size)
+        (e1, e2, e3, e4) = sentics(e1Center, e2Center, e3Center, e4Center, random.gauss)
+        points.append({"lat": lat, "lng": lng,
                        "pleasantness": e1,
                        "aptitude": e2,
                        "attention": e3,
