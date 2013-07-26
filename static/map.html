@@ -32,17 +32,18 @@
       <label>Or choose from the wheel:</label>
       <!-- More details about knobs: https://github.com/aterrien/jQuery-Knob -->
        <div class="demo">
-         <select class="axes">
-           <option ng-click="switchAxes('pleasantness', 'attention')">Pleasantness vs
-             Attention</option>
-           <option ng-click="switchAxes('sensitivity', 'aptitude')">Sensitivity vs
-             Aptitude</options>
-           <option ng-click="switchAxes('attention', 'sensitivity')">Sensitivity vs
-             Attention</option>
-           <option ng-click="switchAxes('aptitude', 'pleasantness')">Pleasantness vs
-             Aptitude</option>
-         </select>
+            <!-- floating elements must come first! !-->
             <div id="right-axis">{{rightAxis}}</div>
+            <select class="axes">
+              <option ng-click="switchAxes('pleasantness', 'attention')">Pleasantness vs
+                Attention</option>
+              <option ng-click="switchAxes('sensitivity', 'aptitude')">Sensitivity vs
+                Aptitude</options>
+              <option ng-click="switchAxes('attention', 'sensitivity')">Sensitivity vs
+                Attention</option>
+              <option ng-click="switchAxes('aptitude', 'pleasantness')">Pleasantness vs
+                Aptitude</option>
+            </select>
             <div id="top-axis">{{topAxis}}</div>
             <input class="knob" data-min="0" data-displayInput=false data-max="360" data-width="150" data-cursor=true data-fgColor="#222222" data-thickness=.3 value="3">
         </div>
