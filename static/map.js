@@ -75,7 +75,7 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
                                                         attention: attention,
                                                         sensitivity: sensitivity});
                 distances.push({location: new google.maps.LatLng(review_emotion['lat'], review_emotion['lng']),
-                                weight: Math.pow(3 * 1.0 / distance, 4)});
+                                weight: Math.pow(3 * (Math.min(1e3, 1.0 / distance)), 4)});
             }
 
             $scope.distances = distances;
@@ -84,9 +84,6 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
         redrawMap = function () {
             console.log($scope.distances);
             $scope.map.heatmap.setData($scope.distances);
-            // $scope.map.heatmapData.clear();
-            // for (var i = 0; i < $scope.distances.length; i++)
-            //     $scope.map.heatmapData.push($scope.distances[i]);
         };
 
         $scope.pleasantness = 50;
