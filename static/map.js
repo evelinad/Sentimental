@@ -46,14 +46,14 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
         };
 
 
-        $scope.pleasantness = 0;
-        $scope.attention = 0;
-        $scope.sensitivity = 0;
-        $scope.aptitude = 0;
-        $scope.$watch('pleasantness', colorFader($('#pleasantness'), [20, 20, 20], [143, 236, 106]));
+        $scope.pleasantness = 50;
+        $scope.attention = 50;
+        $scope.sensitivity = 50;
+        $scope.aptitude = 50;
+        $scope.$watch('pleasantness', colorFader($('#pleasantness'), [143, 236, 106], [50, 150, 50]));
         $scope.$watch('attention', colorFader($('#attention'), [253, 255, 115], [255, 92, 0]));
-        $scope.$watch('sensitivity', colorFader($('#sensitivity'), [103, 73, 215], [20, 53, 173]));
-        $scope.$watch('aptitude', colorFader($('#aptitude'), [255, 255, 255], [255, 142, 00]));
+        $scope.$watch('sensitivity', colorFader($('#sensitivity'), [153, 120, 215], [20, 53, 173]));
+        $scope.$watch('aptitude', colorFader($('#aptitude'), [100, 125, 125], [25, 15, 100]));
 
 	// Setup click behavior.
 	google.maps.event.addListener($scope.map.map, 'click', function(event) {

@@ -12,16 +12,7 @@ sentimentalApp.controller('MapController', function MapController($scope) {
 	// Controller that manages the emotion map.
 
 	// Values that are watched are stored in $scope.watch. Initilize here.
-	$scope.watched = {
-		name: '',
-		relax_name: false,
-		relax_location: false,
-		address: '',
-		city: '',
-		state: '',
-		zip: '',
-		num_results: 1
-	};
+	$scope.watched = {};
 
 
 	$scope.watched.latLng = "37.764073094986266,-122.41952431201935";
@@ -57,8 +48,10 @@ init_gmap = function(mapElement) {
         {location: new google.maps.LatLng(37.7742, -122.4188), weight: 10},
         {location: new google.maps.LatLng(37.7747, -122.4181), weight: 10},
     ]);
-    var heatmap = new google.maps.visualization.HeatmapLayer({data: dataArray});
-    heatmap.setMap(map);
+    var heatmap = new google.maps.visualization.HeatmapLayer({
+        data: dataArray,
+        map: map
+    });
 
     return {map : map, heatmapData : dataArray};
 };
