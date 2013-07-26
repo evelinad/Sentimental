@@ -1,63 +1,63 @@
 #! /usr/bin/env python
 
-import cPickle as pickle
 import networkx as nx
-import senticnet
+import sentics
 import SenticParser
 import os
 
-def get_sentics_of_sentence(sentence):
-	dirname = os.path.dirname(__file__)
-	G = nx.read_gpickle(os.path.join(dirname, "test.gpickle"))
+class SenticsParser(object):
 
-	bigrams = []
+	def __init__(self):
+		dirname = os.path.dirname(__file__)
+		self.G = nx.read_gpickle(os.path.join(dirname, "test.gpickle"))
+		self.sn = sentics.Sentics()
 
-	words = sentence.split()
+	def get_sentics_of_sentence(self, sentence):
 
-	list_concepts = []
-	conc = []
+		words = sentence.split()
 
-	to_add = ""
+		list_concepts = []
+		conc = []
 
-	for word in words:
-		if ( word in G ):
-			conc.append(word)
-			to_add += word+" "
-		elif( to_add != "" ):
+		to_add = ""
+
+		for word in words:
+			if (word in self.G):
+				conc.append(word)
+				to_add += word + " "
+			elif(to_add != ""):
+				list_concepts.append(to_add[:-1])
+				to_add = ""
+
+		if(to_add != ""):
 			list_concepts.append(to_add[:-1])
-			to_add = ""
 
-	if( to_add != "" ):
-		list_concepts.append(to_add[:-1])
+		parserList = SenticParser.getOutputConcepts(sentence)
 
-	parserList = SenticParser.getOutputConcepts(sentence)
+		list_concept = list(set(list_concepts) | 	set(parserList))
 
-	list_concept = list( set(list_concepts) |	set(parserList) )
+		list_concept = filter(bool, list_concept)
 
-	list_concept = filter(bool, list_concept)
+		list_concept = set(list(list_concepts))
 
-	list_concept = set(list(list_concepts))
-
-	sn = senticnet.Senticnet()
-
-	to_search = []
+		to_search = []
 
 
-	for phrase in list_concepts:
-		concepts = phrase.split()
-		to_search = to_search + concepts
-		for i in range(len(concepts) - 1):
-			for j in range(i+1, len(concepts)):
-				try:
-					k = nx.dijkstra_path(G,concepts[i], concepts[j])
-					if( len(k) == j-i+1 and k == concepts[i:j+1] ):
-						to_search = list( set(to_search) - set(k) )
-						word_to_add = "_".join(k)
-						to_search.append( word_to_add )
-				except:
-					continue
+		for phrase in list_concepts:
+			concepts = phrase.split()
+			to_search = to_search + concepts
+			for i in range(len(concepts) - 1):
+				for j in range(i + 1, len(concepts)):
+					try:
+						k = nx.dijkstra_path(self.G, concepts[i], concepts[j])
+						if(len(k) == j - i + 1 and k == concepts[i:j + 1]):
+							to_search = list(set(to_search) - set(k))
+							word_to_add = "_".join(k)
+							to_search.append(word_to_add)
+					except:
+						continue
 
-	to_search = list( set(	to_search ) )
+		to_search = list(set(to_search))
 
-	sorted_by_length = sorted(to_search, key=lambda tup:len(tup.split("_")) )
-	return filter(lambda x: x is not None, [sn.sentics(concept) for concept in to_search])
+		sorted_by_length = sorted(to_search, key=lambda tup:len(tup.split("_")))
+		return filter(lambda x: x is not None, [self.sn.lookup(concept) for concept in to_search])
