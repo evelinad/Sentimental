@@ -1,5 +1,15 @@
 // JS specifically for the query page.
 
+function capitaliseFirstLetter(string)
+{
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function lowerFirstLetter(string)
+{
+    return string.charAt(0).toLowerCase() + string.slice(1);
+}
+
 sentimentalApp.controller('MapUIController', function MapUIController($scope, $location) {
 	// Controller that manages linking the map and URL arguments to the
 	// current query. It has no querying logic itself. That is left up to
@@ -11,7 +21,11 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
 
 	$scope.map = init_gmap(document.getElementById("map-canvas"));
     $scope.data = [];
+    $scope.capitaliseFirstLetter = capitaliseFirstLetter;
     $scope.distances = [];
+
+    $scope.topAxis = 'pleasantness';
+    $scope.rightAxis = 'attention';
 
     $.ajax({
         type: 'GET',
@@ -59,8 +73,8 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
 
     $scope.switchAxes = function (topAxis, rightAxis) {
         console.log('switchaxes');
-        $scope.topAxis = topAxis;
-        $scope.rightAxis = rightAxis;
+        $scope.topAxis = capitaliseFirstLetter(topAxis);
+        $scope.rightAxis = capitaliseFirstLetter(rightAxis);
     }
 
     colorFader = function (elem, startColor, endColor) {
@@ -203,12 +217,15 @@ $(function($) {
         release : function (value) {
             //console.log(this.$.attr('value'));
 
-            goWheel = function (attribute1, attribute2){
-                $( attribute2 ).slider( "value", 50 + 50 * Math.cos(value / 180.0 * Math.PI ));
-                $( attribute1 ).slider( "value", 50 + 50 * Math.sin(value / 180.0 * Math.PI ));
+            goWheel = function (rightAxis, topAxis){
+                $( topAxis ).slider( "value", 50 + 50 * Math.cos(value / 180.0 * Math.PI ));
+                $( rightAxis ).slider( "value", 50 + 50 * Math.sin(value / 180.0 * Math.PI ));
             };
 
-            goWheel("#attention", "#pleasantness");
+            var topAxis = '#' + lowerFirstLetter($('#top-axis').text());
+            var rightAxis = '#' + lowerFirstLetter($('#right-axis').text());
+
+            goWheel(rightAxis, topAxis);
             // goWheel("#aptitude", "#sensitivity");
             // goWheel("#sensitivity", "#attention");
             // goWheel("#pleasantness", "#aptitude");

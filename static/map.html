@@ -25,7 +25,7 @@
       <h2>Hackathon 11.0</h2>
       <label>Or choose from the following list:</label>
       <select class="options">
-        <option ng-repeat="option in options" ng-click="go(option[0], option[1], option[2], option[3], option[4])">{{option[4]}}</option>
+        <option ng-repeat="option in options" ng-click="go(option[0], option[1], option[2], option[3], option[4])">{{capitaliseFirstLetter(option[4])}}</option>
       </select>
       <!-- More details about knobs: https://github.com/aterrien/jQuery-Knob -->
       <br>
@@ -35,15 +35,14 @@
          <select class="axes">
            <option ng-click="switchAxes('pleasantness', 'attention')">Pleasantness vs
              Attention</option>
-           <option ng-click="switchAxes('pleasantness', 'aptitude')">Pleasantness vs
-             Aptitude</option>
-           <option ng-click="switchAxes('sensitivity', 'attention')">Sensitivity vs
-             Attention</option>
            <option ng-click="switchAxes('sensitivity', 'aptitude')">Sensitivity vs
              Aptitude</options>
+           <option ng-click="switchAxes('attention', 'sensitivity')">Sensitivity vs
+             Attention</option>
+           <option ng-click="switchAxes('aptitude', 'pleasantness')">Pleasantness vs
+             Aptitude</option>
          </select>
             <div id="right-axis">{{rightAxis}}</div>
-            <p style="text-align:center">preset&nbsp;options</p>
             <div id="top-axis">{{topAxis}}</div>
             <input class="knob" data-min="0" data-displayInput=false data-max="360" data-width="150" data-cursor=true data-fgColor="#222222" data-thickness=.3 value="3">
         </div>

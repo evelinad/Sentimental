@@ -144,11 +144,22 @@ div.demo > p {
     color: rgb(0, 0, 150);
     text-align: center;
     float: right;
-    -webkit-transform: rotate(90deg) translateX(275px) translateY(20px);
+    -webkit-transform: rotate(90deg) translateX(230px) translateY(20px);
     -webkit-transform-origin: 100% 0%;
-    -moz-transform: rotate(90deg) translateX(275px) translateY(20px);
+    -moz-transform: rotate(90deg) translateX(230px) translateY(20px);
     -moz-transform-origin: 100% 0%;
-    transform: rotate(90deg) translateX(275px) translateY(20px);
+    transform: rotate(90deg) translateX(230px) translateY(20px);
     transform-origin: 100% 0%;
     width: 200px;
+}
+
+.options {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.left-bar > label
+{
+    text-align: center;
 }
