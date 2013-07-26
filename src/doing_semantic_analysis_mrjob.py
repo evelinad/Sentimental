@@ -6,12 +6,16 @@ from sklearn.cluster import DBSCAN
 from numpy import array
 
 class SentimentAnalysisMRJob(MRJob):
+
+	def __init__(self, args=None):
+		super(SentimentAnalysisMRJob, self).__init__(args=args)
+		self.sp = senticsparser.SenticsParser()
+
 	def mapper(self, _, review):
-		sp = senticsparser.SenticsParser()
 		review = simplejson.loads(review)
 		sentics = []
 		for sentence in sent_tokenize(review['text']):
-			sentics.extend(sp.get_sentics_of_sentence(sentence))
+			sentics.extend(self.sp.get_sentics_of_sentence(sentence))
 		if sentics:
 			sentics_avg = []
 			print sentics
