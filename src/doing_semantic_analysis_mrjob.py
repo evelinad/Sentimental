@@ -9,16 +9,17 @@ class SentimentAnalysisMRJob(MRJob):
 
 	def __init__(self, args=None):
 		super(SentimentAnalysisMRJob, self).__init__(args=args)
-		self.sp = senticsparser.SenticsParser()
 		self.sf_biz = simplejson.loads(SFBizes)
+		self.sp = None
 
 	def mapper(self, _, review):
+		if not self.sp:
+			self.sp = senticsparser.SenticsParser()
 		review = simplejson.loads(review)
 		if not review['business_id'] in SFBizes:
 			return
-		sentics = []
-		for sentence in sent_tokenize(review['text']):
-			sentics.extend(self.sp.get_sentics_of_sentence(sentence))
+		review['text'] = str(review['text'].encode('utf-8').decode('ascii', 'ignore'))
+		sentics = self.sp.get_sentics_of_sentence(review['text'])
 		if sentics:
 			sentics_avg = []
 			print sentics
