@@ -63,7 +63,7 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
             var distances = [];
 
             var pleasantness = ($scope.pleasantness / 100.0) * 2 - 1;
-            var attitude = ($scope.attitude / 100.0) * 2 - 1;
+            var aptitude = ($scope.aptitude / 100.0) * 2 - 1;
             var attention = ($scope.attention / 100.0) * 2 - 1;
             var sensitivity = ($scope.sensitivity / 100.0) * 2 - 1;
 
@@ -71,17 +71,18 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
                 var review_emotion = $scope.data[i];
                 var distance = $scope.compute_distance(review_emotion,
                                                        {pleasantness: pleasantness,
-                                                        attitude: attitude,
+                                                        aptitude: aptitude,
                                                         attention: attention,
                                                         sensitivity: sensitivity});
                 distances.push({location: new google.maps.LatLng(review_emotion['lat'], review_emotion['lng']),
-                                weight: distance});
+                                weight: Math.floor((Math.exp(1.1 * 1.0 / distance)))});
             }
 
             $scope.distances = distances;
         };
 
         redrawMap = function () {
+            console.log($scope.distances);
             $scope.map.heatmap.setData($scope.distances);
             // $scope.map.heatmapData.clear();
             // for (var i = 0; i < $scope.distances.length; i++)
