@@ -218,6 +218,10 @@ $(document).ready(function() {
 
 $(function($) {
     $('#control-expander').click(function () {
+        if ($('#controls').css('display') == 'block')
+            $('#show-hide').text('Show');
+        else
+            $('#show-hide').text('Hide');
         $('#controls').slideToggle(500);
     });
     $(".knob").knob({
