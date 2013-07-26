@@ -23,54 +23,6 @@
       <canvas id="mainCanvas" width="800" height="65"></canvas>
       <h1>Sentiment Analysis</h1>
       <h2>Hackathon 11.0</h2>
-      <div class="control">
-        <label class="control-label">Pleasantness</label>
-        <div class="slider" id="pleasantness"></div>
-        <ol class="slider-label">
-          <li>grief</li>
-          <li>sadness</li>
-          <li>pensiveness</li>
-          <li>serenity</li>
-          <li>joy</li>
-          <li>ecstasy</li>
-        </ol>
-      </div>
-      <div class="control">
-        <label class="control-label">Attention</label>
-        <div class="slider" id="attention"></div>
-        <ol class="slider-label">
-          <li>amazement</li>
-          <li>surprise</li>
-          <li>distraction</li>
-          <li>interest</li>
-          <li>anticipation</li>
-          <li>vigilance</li>
-        </ol>
-      </div>
-      <div class="control">
-        <label class="control-label">Sensitivity</label>
-        <div class="slider" id="sensitivity"></div>
-        <ol class="slider-label">
-          <li>terror</li>
-          <li>fear</li>
-          <li>apprehension</li>
-          <li>annoyance</li>
-          <li>anger</li>
-          <li>rage</li>
-        </ol>
-      </div>
-      <div class="control">
-        <label class="control-label">Aptitude</label>
-        <div class="slider" id="aptitude"></div>
-        <ol class="slider-label">
-          <li>loathing</li>
-          <li>disgust</li>
-          <li>boredom</li>
-          <li>acceptance</li>
-          <li>trust</li>
-          <li>admiration</li>
-        </ol>
-      </div>
       <label>Or choose from the following list:</label>
       <select class="options">
         <option ng-repeat="option in options" ng-click="go(option[0], option[1], option[2], option[3], option[4])">{{option[4]}}</option>
@@ -78,9 +30,74 @@
       <!-- More details about knobs: https://github.com/aterrien/jQuery-Knob -->
       <br>
       <label>Or choose from the wheel:</label>
-      <div class="demo">
-            <input class="knob" data-min="0" data-max="360" data-width="150" data-cursor=true data-fgColor="#222222" data-thickness=.3 value="3" data-displayInput=false skin="tron">
+      <!-- More details about knobs: https://github.com/aterrien/jQuery-Knob -->
+       <div class="demo">
+         <select class="axes">
+           <option ng-click="switchAxes('pleasantness', 'attention')">Pleasantness vs
+             Attention</option>
+           <option ng-click="switchAxes('pleasantness', 'aptitude')">Pleasantness vs
+             Aptitude</option>
+           <option ng-click="switchAxes('sensitivity', 'attention')">Sensitivity vs
+             Attention</option>
+           <option ng-click="switchAxes('sensitivity', 'aptitude')">Sensitivity vs
+             Aptitude</options>
+         </select>
+            <div id="right-axis">{{rightAxis}}</div>
+            <p style="text-align:center">preset&nbsp;options</p>
+            <div id="top-axis">{{topAxis}}</div>
+            <input class="knob" data-min="0" data-displayInput=false data-max="360" data-width="150" data-cursor=true data-fgColor="#222222" data-thickness=.3 value="3">
         </div>
+      <h3 id="control-expander">Advanced Options</h3>
+      <div id="controls">
+        <div class="control">
+          <label class="control-label">Pleasantness</label>
+          <div class="slider" id="pleasantness"></div>
+          <ol class="slider-label">
+            <li>grief</li>
+            <li>sadness</li>
+            <li>pensiveness</li>
+            <li>serenity</li>
+            <li>joy</li>
+            <li>ecstasy</li>
+          </ol>
+        </div>
+        <div class="control">
+          <label class="control-label">Attention</label>
+          <div class="slider" id="attention"></div>
+          <ol class="slider-label">
+            <li>amazement</li>
+           <li>surprise</li>
+            <li>distraction</li>
+            <li>interest</li>
+            <li>anticipation</li>
+            <li>vigilance</li>
+          </ol>
+        </div>
+        <div class="control">
+          <label class="control-label">Sensitivity</label>
+          <div class="slider" id="sensitivity"></div>
+          <ol class="slider-label">
+            <li>terror</li>
+            <li>fear</li>
+            <li>apprehension</li>
+            <li>annoyance</li>
+            <li>anger</li>
+            <li>rage</li>
+          </ol>
+        </div>
+        <div class="control">
+          <label class="control-label">Aptitude</label>
+          <div class="slider" id="aptitude"></div>
+          <ol class="slider-label">
+            <li>loathing</li>
+            <li>disgust</li>
+            <li>boredom</li>
+            <li>acceptance</li>
+            <li>trust</li>
+            <li>admiration</li>
+          </ol>
+        </div>
+      </div>
     </div>
     <div id="map-canvas" class="map-canvas" style="height: 96vh">
     </div>

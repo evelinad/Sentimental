@@ -34,9 +34,20 @@ h2 {
     clear: both;
 }
 
+.left-bar #control-expander
+{
+    cursor: pointer;
+    text-align: center;
+}
+
+.left-bar #controls
+{
+    display: none;
+}
+
 .left-bar .control {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .map-canvas iframe, .map-canvas object, .map-canvas embed {
@@ -75,8 +86,9 @@ h2 {
 }
 
 ol.slider-label {
+    display: block;
   list-style: none;
-  width: 100%;
+  width: 300px;
   padding: 0;
   overflow: hidden;
   color: rgb(150, 150, 150);
@@ -84,14 +96,23 @@ ol.slider-label {
   text-align: justify;
 }
 
-ol.slider-label li:nth-child(1), ol.slider-label li:nth-child(2), ol.slider-label li:nth-child(3) {
-  float: left;
-  padding: 4px;
+ol.slider-label li
+{
+    display: block;
+    margin: 0 auto;
+    width: 25%;
+    text-align: center;
+    float: left;
 }
 
-ol.slider-label li:nth-child(4), ol.slider-label li:nth-child(5), ol.slider-label li:nth-child(6) {
-  float: left;
-  padding: 4px;
+ol.slider-label li:first-child
+{
+    text-align: left;
+}
+
+ol.slider-label li:last-child
+{
+    text-align: right;
 }
 
 ol.slider-label li:nth-child(2), ol.slider-label li:nth-child(5) {
@@ -110,4 +131,22 @@ div.demo {
 
 div.demo > p {
   font-size: 20px
+}
+
+#top-axis
+{
+    padding-bottom: 10px;
+}
+
+#right-axis
+{
+    text-align: center;
+    float: right;
+    -webkit-transform: rotate(90deg) translateX(275px) translateY(20px);
+    -webkit-transform-origin: 100% 0%;
+    -moz-transform: rotate(90deg) translateX(275px) translateY(20px);
+    -moz-transform-origin: 100% 0%;
+    transform: rotate(90deg) translateX(275px) translateY(20px);
+    transform-origin: 100% 0%;
+    width: 200px;
 }
