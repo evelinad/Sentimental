@@ -23,7 +23,7 @@
       <canvas id="mainCanvas" width="800" height="65"></canvas>
       <h1>Sentiment Analysis</h1>
       <h2>Hackathon 11.0</h2>
-      <label>Or choose from the following list:</label>
+      <label>Choose an emotion from the following list:</label>
       <select class="options">
         <option ng-repeat="option in options" ng-click="go(option[0], option[1], option[2], option[3], option[4])">{{capitaliseFirstLetter(option[4])}}</option>
       </select>
