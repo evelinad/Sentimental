@@ -291,8 +291,8 @@ $(function($) {
             this.g.stroke();
             this.g.font="12pt Arial";
             this.g.fillStyle = 'rgb(0, 0, 150)';
-            this.g.fillText("+", x + this.radius, y - 5);
-            this.g.fillText("-", x - this.radius, y - 5);
+            this.g.fillText("1", x + this.radius, y - 5);
+            this.g.fillText("-1", x - this.radius, y - 5);
 
             this.g.beginPath();
             this.g.strokeStyle = this.o.fgColor;
@@ -302,8 +302,8 @@ $(function($) {
             this.g.stroke();
             this.g.font="12pt Arial";
             this.g.fillStyle = 'rgb(150, 0, 0)';
-            this.g.fillText("+", x + 5, y - this.radius);
-            this.g.fillText("-", x + 5, y + this.radius);
+            this.g.fillText("1", x + 5, y - this.radius);
+            this.g.fillText("-1", x + 5, y + this.radius);
 
             return false;
         }});
