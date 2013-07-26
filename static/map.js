@@ -51,7 +51,6 @@ sentimentalApp.controller('MapUIController', function MapUIController($scope, $l
     ];
 
     $scope.go = function (e1, e2, e3, e4, description){
-        alert('test');
         $( "#pleasantness" ).slider( "value", e1 );
         $( "#attention" ).slider( "value", e2 );
         $( "#sensitivity" ).slider( "value", e3 );
@@ -222,7 +221,6 @@ $(function($) {
             // draw axis
             console.log(this.xy);
 
-            this.g.fillRect(-100, -5, 100, 5);
             // "tron" case
             if(this.$.data('skin') == 'tron') {
 
@@ -267,18 +265,28 @@ $(function($) {
             // Draw axes... these go above the knob stuff, so are drawn last
             var x  = this.xy;
             var y = this.xy;
-            this.g.lineWidth = 2;
+            this.g.lineWidth = 1;
             this.g.beginPath();
             this.g.strokeStyle = this.o.fgColor;
             this.g.moveTo(x - this.radius - 100, y);
             this.g.lineTo(x + this.radius + 100, y);
+            this.g.strokeStyle = 'rgb(0, 0, 150)';
             this.g.stroke();
+            this.g.font="12pt Arial";
+            this.g.fillStyle = 'rgb(0, 0, 150)';
+            this.g.fillText("+", x + this.radius, y - 5);
+            this.g.fillText("-", x - this.radius, y - 5);
 
             this.g.beginPath();
             this.g.strokeStyle = this.o.fgColor;
             this.g.moveTo(x, y - this.radius - 10);
             this.g.lineTo(x, y + this.radius + 10);
+            this.g.strokeStyle = 'rgb(150, 0, 0)';
             this.g.stroke();
+            this.g.font="12pt Arial";
+            this.g.fillStyle = 'rgb(150, 0, 0)';
+            this.g.fillText("+", x + 5, y - this.radius);
+            this.g.fillText("-", x + 5, y + this.radius);
 
             return false;
         }});

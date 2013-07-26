@@ -136,10 +136,12 @@ div.demo > p {
 #top-axis
 {
     padding-bottom: 10px;
+    color: rgb(150, 0, 0);
 }
 
 #right-axis
 {
+    color: rgb(0, 0, 150);
     text-align: center;
     float: right;
     -webkit-transform: rotate(90deg) translateX(275px) translateY(20px);
